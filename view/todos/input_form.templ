@@ -1,0 +1,39 @@
+package todos
+
+import (
+    "todo/data"
+    "strconv"
+    "fmt"
+    . "github.com/icza/gog"
+)
+
+type InputFormProps struct {
+    Todo data.Todo
+    Action string
+}
+
+templ InputForm(props InputFormProps) {
+    <form id="input-form" hx-post={ fmt.Sprintf("/todos/%s", props.Action ) } hx-target={ If(props.Action == "edit", "#todos-container", "#todo-list") }>
+        <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <input id="input-text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                   type="text" 
+                   placeholder="Todo text" 
+                   name="text"
+                   value={ props.Todo.Text }
+                   ></input>
+            <input type="hidden" name="id" value={ strconv.FormatInt(props.Todo.ID, 10) }></input>
+            if props.Action == "edit" {
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4">Update</button>
+            } else if  props.Action == "add" {
+                <button class="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4">Add</button>
+            }
+        </div>
+    </form>
+    <script>
+    document.addEventListener('htmx:afterSwap', function(event) {
+        if(event.target.id === 'todo-list') {
+            document.getElementById('input-text').value = ''; // Reset text input
+        }
+    });
+</script>
+}
