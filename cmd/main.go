@@ -12,7 +12,7 @@ func main() {
 	db.Init()
 
 	app := slick.New()
-	app.Get("/", handler.HandleTodosIndex)
+	app.Get("/", handler.HandleTodosPage)
 	app.Get("/todos/:id", handler.HandleTodoRemove)
 	app.Post("/todos/add", handler.HandleTodoAdd)
 	app.Get("/todos/:id/edit", handler.HandleTodoEditGet)

@@ -9,7 +9,7 @@ import (
 	"github.com/anthdm/slick"
 )
 
-func HandleTodosIndex(c *slick.Context) error {
+func HandleTodosPage(c *slick.Context) error {
 	todoList, err := data.TodosAll()
 	if err != nil {
 		fmt.Printf("Error fetching todos: %v\n", err)
@@ -19,7 +19,7 @@ func HandleTodosIndex(c *slick.Context) error {
 		Todos: todoList,
 	}
 
-	return c.Render(todos.Index(todosProps))
+	return c.Render(todos.TodosPage(todosProps))
 }
 
 // handle remove todo
@@ -76,5 +76,5 @@ func HandleTodoEditPost(c *slick.Context) error {
 		Todos: todoList,
 	}
 
-	return c.Render(todos.Index(todosProps))
+	return c.Render(todos.TodosPage(todosProps))
 }
