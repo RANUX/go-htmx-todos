@@ -8,4 +8,5 @@ import (
 func main() {
 	db.Init()
 	data.TodoCreateTable()
+	data.UserCreateTable()
 }

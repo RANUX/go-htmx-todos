@@ -37,4 +37,5 @@ require (
 	github.com/uptrace/bun/dialect/sqlitedialect v1.1.17
 	github.com/uptrace/bun/driver/sqliteshim v1.1.17
 	github.com/uptrace/bun/extra/bundebug v1.1.17
+	golang.org/x/crypto v0.21.0
 )
