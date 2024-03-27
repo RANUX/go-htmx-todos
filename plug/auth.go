@@ -1,4 +1,4 @@
-package middleware
+package plug
 
 import (
 	"net/http"
@@ -17,7 +17,7 @@ func AuthMiddleware(next slick.Handler) slick.Handler {
 		userSession, err := session.Store.Get(r, "user-session")
 
 		if err != nil {
-			http.Redirect(w, r, "/login", http.StatusFound) // TODO: redirect to logout
+			http.Redirect(w, r, "/login", http.StatusFound)
 			return err
 		}
 
@@ -37,6 +37,4 @@ func AuthMiddleware(next slick.Handler) slick.Handler {
 		return next(c)
 	}
 
-	// If user is not authenticated, redirect to login page
-	//h(w, r, ps)
 }

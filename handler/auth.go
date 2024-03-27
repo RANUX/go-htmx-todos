@@ -59,3 +59,19 @@ func HandleLoginPost(c *slick.Context) error {
 
 	return c.Redirect("/todos", http.StatusFound)
 }
+
+func HandleLogoutPost(c *slick.Context) error {
+	session, err := session.Store.Get(c.Request, "user-session")
+	if err != nil {
+		http.Error(c.Response, err.Error(), http.StatusInternalServerError)
+		return err
+	}
+	// remove user from session
+	session.Values["user"] = nil
+	err = session.Save(c.Request, c.Response)
+	if err != nil {
+		http.Error(c.Response, err.Error(), http.StatusInternalServerError)
+		return err
+	}
+	return c.Redirect("/", http.StatusFound)
+}
