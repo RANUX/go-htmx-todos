@@ -8,4 +8,5 @@ import (
 func main() {
 	db.Init()
 	data.TodoDropTable()
+	data.UserDropTable()
 }

@@ -31,8 +31,11 @@ require (
 
 require (
 	github.com/a-h/templ v0.2.648
+	github.com/gorilla/securecookie v1.1.2
+	github.com/gorilla/sessions v1.2.2
 	github.com/joho/godotenv v1.5.1 // indirect
 	github.com/julienschmidt/httprouter v1.3.0 // indirect
+	github.com/sirupsen/logrus v1.9.3
 	github.com/uptrace/bun v1.1.17
 	github.com/uptrace/bun/dialect/sqlitedialect v1.1.17
 	github.com/uptrace/bun/driver/sqliteshim v1.1.17
