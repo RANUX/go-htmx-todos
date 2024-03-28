@@ -1,12 +1,12 @@
-package users
+package auth
 
 import (
 	"todo/view/layout"
 )
 
-templ AuthPage() {
+templ LoginPage() {
     @layout.Base() {
-        <div class="min-h-screen bg-gray-100 flex items-center justify-center">
+        <div id="todo-container" class="max-w-md mx-auto">
         <div class="bg-white p-8 rounded-lg shadow-lg max-w-xs w-full">
             @LoginForm()
         </div>

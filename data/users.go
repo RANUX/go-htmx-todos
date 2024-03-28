@@ -12,10 +12,10 @@ import (
 )
 
 type User struct {
-	ID        int64     `bun:"id,pk,autoincrement"`            // Primary key with autoincrement
-	UUID      uuid.UUID `bun:"uuid, notnull,unique,type:uuid"` // Unique and not null constraint
-	Username  string    `bun:"username,notnull"`               // Not null constraint
-	Email     string    `bun:"email,unique,notnull"`           // Unique and not null constraint
+	ID        int64     `bun:"id,pk,autoincrement"`   // Primary key with autoincrement
+	UUID      uuid.UUID `bun:"uuid,unique,type:uuid"` // Unique and not null constraint
+	Username  string    `bun:"username,notnull"`      // Not null constraint
+	Email     string    `bun:"email,unique,notnull"`  // Unique and not null constraint
 	Password  string    `bun:"password,notnull"`
 	CreatedAt time.Time `bun:"created_at,nullzero,notnull,default:current_timestamp"` // Use current timestamp as default
 }

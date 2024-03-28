@@ -9,15 +9,8 @@ type TodosProps struct {
 	Todos data.Todos
 }
 
-templ TodosPage(props TodosProps) {
+templ TodoPage(props TodosProps) {
 	@layout.Base() {
-		<div id="todos-container" class="max-w-md mx-auto">
-			<div class="bg-white shadow-md rounded my-6">
-				@TodoList(props)
-			</div>
-			@InputForm(InputFormProps{
-				Action: "add",
-			})
-		</div>
+		@TodoContainer(props)
 	}
 }

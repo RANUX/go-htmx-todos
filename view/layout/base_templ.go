@@ -23,7 +23,7 @@ func Base() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Todos Application</title><script src=\"https://unpkg.com/htmx.org@1.9.9\" defer></script><script src=\"https://cdn.tailwindcss.com\" defer></script></head><body>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Todos Application</title><script src=\"/public/js/htmx.min.js\" defer></script><script src=\"/public/js/tailwind.min.js\" defer></script><link rel=\"stylesheet\" href=\"/public/css/app.css\"><script src=\"/public/js/app.js\"></script></head><body><div id=\"load\"></div><nav class=\"bg-white border-b border-gray-200 fixed z-30 w-full\"><div class=\"px-6 py-3\"><div class=\"flex items-center justify-between\"><div class=\"flex items-center justify-between w-full\"><div class=\"text-xl font-semibold text-gray-700\">Todos App</div><div class=\"hidden md:flex items-center ml-10\"><a href=\"/todos\" class=\"text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium\">Todos</a> <a href=\"/profile\" class=\"text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium\">Profile</a></div></div></div></div></nav><main id=\"main\" class=\"pt-24 pb-8\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -31,7 +31,7 @@ func Base() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</body></html>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</main></body></html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

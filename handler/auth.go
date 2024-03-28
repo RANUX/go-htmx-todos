@@ -5,13 +5,13 @@ import (
 	"todo/data"
 	"todo/pkg/session"
 	"todo/types"
-	"todo/view/users"
+	"todo/view/auth"
 
 	"github.com/anthdm/slick"
 )
 
-func HandleAuthPage(c *slick.Context) error {
-	return c.Render(users.AuthPage())
+func HandleLoginPage(c *slick.Context) error {
+	return c.Render(auth.LoginPage())
 }
 
 func HandleLoginPost(c *slick.Context) error {
@@ -26,18 +26,18 @@ func HandleLoginPost(c *slick.Context) error {
 	// check username and password against database
 	user, err := data.UserGet(username)
 	if err != nil {
-		c.Render(users.AuthPage())
+		c.Render(auth.LoginPage())
 		return err
 	}
 
 	// check password
 	match, err := data.UserPasswordMatches(password, user)
 	if err != nil {
-		c.Render(users.AuthPage())
+		c.Render(auth.LoginPage())
 		return err
 	}
 	if !match {
-		c.Render(users.AuthPage())
+		c.Render(auth.LoginPage())
 		return nil
 	}
 
@@ -60,7 +60,7 @@ func HandleLoginPost(c *slick.Context) error {
 	return c.Redirect("/todos", http.StatusFound)
 }
 
-func HandleLogoutPost(c *slick.Context) error {
+func HandleLogoutGet(c *slick.Context) error {
 	session, err := session.Store.Get(c.Request, "user-session")
 	if err != nil {
 		http.Error(c.Response, err.Error(), http.StatusInternalServerError)
@@ -73,5 +73,5 @@ func HandleLogoutPost(c *slick.Context) error {
 		http.Error(c.Response, err.Error(), http.StatusInternalServerError)
 		return err
 	}
-	return c.Redirect("/", http.StatusFound)
+	return c.Redirect("/login", http.StatusFound)
 }
