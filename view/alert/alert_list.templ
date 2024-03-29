@@ -1,0 +1,17 @@
+package alert
+
+import (
+    "todo/types"
+)
+
+type AlertListProps struct {
+    Alerts []*types.AlertType
+}
+
+templ AlertList(props AlertListProps) { 
+    <div id="alert-list">
+        for _, a := range props.Alerts {
+            @Alert(a.Message, a.Type)
+        }
+    </div>
+}

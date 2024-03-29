@@ -29,5 +29,6 @@ func main() {
 	app.Get("/todos/:id/edit", handler.HandleTodoEditGet, plug.AuthMiddleware)
 	app.Post("/todos/edit", handler.HandleTodoEditPost, plug.AuthMiddleware)
 	app.Get("/public/*filepath", handler.HandlePublicStaticFile)
+	app.Get("/alerts", handler.HandleAlerts)
 	log.Fatal(app.Start())
 }

@@ -1,0 +1,27 @@
+package alert
+
+import (
+    "todo/types"
+    "fmt"
+)
+
+var alertColors = map[types.AlertEnumType]string{
+    types.AlertEnum.Success: "green",
+    types.AlertEnum.Error: "red",
+    types.AlertEnum.Warning: "yellow",
+    types.AlertEnum.Info: "blue",
+}
+
+var alertPrefix = map[types.AlertEnumType]string{
+    types.AlertEnum.Success: "Success",
+    types.AlertEnum.Error: "Error",
+    types.AlertEnum.Warning: "Warning",
+    types.AlertEnum.Info: "Info",
+}
+
+templ Alert(message string, alertType types.AlertEnumType) {
+    <div class={fmt.Sprintf("bg-%s-100 border border-%s-400 text-%s-700 px-4 py-3 rounded relative", alertColors[alertType], alertColors[alertType], alertColors[alertType])} role="alert">
+        <strong class="font-bold">{alertPrefix[alertType]}:</strong>
+        <span class="block sm:inline">{message}</span>
+    </div>
+}

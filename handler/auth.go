@@ -66,7 +66,7 @@ func HandleLogoutGet(c *slick.Context) error {
 		http.Error(c.Response, err.Error(), http.StatusInternalServerError)
 		return err
 	}
-	// remove user from session
+	// remove user from session TODO: refactor to sessison
 	session.Values["user"] = nil
 	err = session.Save(c.Request, c.Response)
 	if err != nil {

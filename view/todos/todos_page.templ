@@ -2,14 +2,9 @@ package todos
 
 import (
 	"todo/view/layout"
-	"todo/data"
 )
 
-type TodosProps struct {
-	Todos data.Todos
-}
-
-templ TodoPage(props TodosProps) {
+templ TodoPage(props TodoListProps) {
 	@layout.Base() {
 		@TodoContainer(props)
 	}

@@ -109,3 +109,12 @@ func UserGetByUUID(id uuid.UUID) (*User, error) {
 	}
 	return user, nil
 }
+
+// Update user
+func UserUpdate(user *User) error {
+	ctx := context.Background()
+	if _, err := db.Bun.NewUpdate().Model(user).WherePK().Exec(ctx); err != nil {
+		return err
+	}
+	return nil
+}

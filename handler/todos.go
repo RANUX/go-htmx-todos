@@ -15,11 +15,11 @@ func HandleTodoPage(c *slick.Context) error {
 		fmt.Printf("Error fetching todos: %v\n", err)
 		return err
 	}
-	todosProps := todos.TodosProps{
+	TodoListProps := todos.TodoListProps{
 		Todos: todoList,
 	}
 
-	return c.Render(todos.TodoPage(todosProps))
+	return c.Render(todos.TodoPage(TodoListProps))
 }
 
 // handle remove todo
@@ -41,11 +41,11 @@ func HandleTodoAdd(c *slick.Context) error {
 		fmt.Printf("Error fetching todos: %v\n", err)
 		return err
 	}
-	todosProps := todos.TodosProps{
+	TodoListProps := todos.TodoListProps{
 		Todos: todoList,
 	}
 
-	return c.Render(todos.TodoList(todosProps))
+	return c.Render(todos.TodoList(TodoListProps))
 }
 
 func HandleTodoEditGet(c *slick.Context) error {
@@ -72,9 +72,9 @@ func HandleTodoEditPost(c *slick.Context) error {
 		fmt.Printf("Error fetching todos: %v\n", err)
 		return err
 	}
-	todosProps := todos.TodosProps{
+	TodoListProps := todos.TodoListProps{
 		Todos: todoList,
 	}
 
-	return c.Render(todos.TodoContainer(todosProps))
+	return c.Render(todos.TodoContainer(TodoListProps))
 }

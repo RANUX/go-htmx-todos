@@ -3,9 +3,9 @@ document.onreadystatechange = function () {
   var state = document.readyState
 
   if (state == 'interactive') {
-       document.getElementById('main').style.visibility="hidden";
-       let loadEl = document.getElementById('load')
-       loadEl.style.visibility="visible";
+      document.getElementById('main').style.visibility="hidden";
+      let loadEl = document.getElementById('load')
+      loadEl.style.visibility="visible";
 
        // background:url("/public/img/spinner.gif") no-repeat center center;
        loadEl.style.background="url(/public/img/spinner.gif) no-repeat center center";

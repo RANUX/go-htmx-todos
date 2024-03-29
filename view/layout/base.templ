@@ -1,6 +1,11 @@
 
 package layout
 
+import (
+	"todo/types"
+	"todo/view/alert"
+)
+
 templ Base() {
 	<!DOCTYPE html>
 	<html lang="en">
@@ -16,8 +21,8 @@ templ Base() {
 			<script src="/public/js/app.js"></script>
 		</head>
 		<body>
-			<div id="load"></div>
-			<nav class="bg-white border-b border-gray-200 fixed z-30 w-full">
+			<div id="load" class="load"></div>
+			<nav class="bg-white border-b border-gray-200 z-30 w-full">
 			<div class="px-6 py-3">
 				<div class="flex items-center justify-between">
 						<div class="flex items-center justify-between w-full">
@@ -30,9 +35,55 @@ templ Base() {
 					</div>
 				</div>
 			</nav>
+			<div id="htmx-error-alert" hidden>
+				@alert.Alert("Oops, something went wrong with the server...", types.AlertEnum.Error)
+			</div>
+			<div id="htmx-error-alert-unknown" hidden>
+				@alert.Alert("Unexpected error, check your connection and refresh the page", types.AlertEnum.Error)
+			</div>
+			<div id="htmx-alerts" hx-get="/alerts" hx-trigger="htmx:load from:body" hx-swap="beforeend">
+			</div>
+			
 			<main id="main" class="pt-24 pb-8">
 				{ children... }
 			</main>
 		</body>
+		<script>
+			document.body.addEventListener('htmx:afterRequest', function(event) {
+				console.log('htmx:afterRequest');
+
+				var htmxAlert = document.querySelector('#htmx-error-alert');
+				var htmxAlertUnknown = document.querySelector('#htmx-error-alert-unknown');
+
+				if (event.detail.successful) {
+					// If the event was successful and the #htmx-error-alert element exists
+					if (htmxAlert) {
+						htmxAlert.hidden = true;
+					}
+				} else if (event.detail.failed && event.detail.xhr) {
+					// If the request failed and there is an xhr object with the error details
+					console.error(`server error: ${event.detail.xhr.status} - ${event.detail.xhr.statusText}`);
+					if (htmxAlert) {
+					htmxAlert.hidden = false;
+					}
+				} else {
+					// For all other cases, assume an unknown error
+					console.error('htmx:afterRequest unknown error');
+					if (htmxAlertUnknown) {
+						htmxAlertUnknown.hidden = false;
+					}
+				}
+			});
+
+			document.addEventListener('htmx:afterSwap', function(event) {
+				if(event.target.id === 'htmx-alerts') {
+					// remove alerts after 5 seconds
+					setTimeout(function() {
+						document.getElementById('htmx-alerts').innerHTML = '';
+					}, 5000);
+				}
+			});
+
+		</script>
 	</html>
 }

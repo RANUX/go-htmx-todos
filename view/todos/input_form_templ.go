@@ -102,7 +102,7 @@ func InputForm(props InputFormProps) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></form><script>\n    document.addEventListener('htmx:afterSwap', function(event) {\n        if(event.target.id === 'todo-list') {\n            document.getElementById('input-text').value = ''; // Reset text input\n        }\n    });\n</script>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></form><script>\n    document.addEventListener('htmx:afterSwap', function(event) {\n        if(event.target.id === 'todo-list') {\n            document.getElementById('input-text').value = ''; // Reset text input\n        }\n    });\n    </script>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

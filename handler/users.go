@@ -1,23 +1,47 @@
 package handler
 
 import (
+	"net/http"
 	"todo/data"
+	"todo/pkg/session"
+	"todo/types"
 	"todo/view/users"
 
 	"github.com/anthdm/slick"
 )
 
 func HandleProfilePage(c *slick.Context) error {
-	return c.Render(users.ProfilePage())
+	userSession, err := session.Store.Get(c.Request, "user-session")
+	if err != nil {
+		http.Error(c.Response, err.Error(), http.StatusInternalServerError)
+		return err
+	}
+
+	authUser := session.GetAuthenticatedUser(userSession)
+
+	// get user from db by username
+	user, err := data.UserGetByUUID(authUser.UUID)
+	if err != nil {
+		return err
+	}
+
+	return c.Render(users.ProfilePage(users.ProfileProps{User: *user}))
 }
 
 func HandleProfileSave(c *slick.Context) error {
+	userSession, err := session.Store.Get(c.Request, "user-session")
+	if err != nil {
+		http.Error(c.Response, err.Error(), http.StatusInternalServerError)
+		return err
+	}
 
 	username := c.FormValue("username")
 	password := c.FormValue("password")
 
+	authUser := session.GetAuthenticatedUser(userSession)
+
 	// get user from db by username
-	user, err := data.UserGet(username)
+	user, err := data.UserGetByUUID(authUser.UUID)
 	if err != nil {
 		return err
 	}
@@ -33,5 +57,12 @@ func HandleProfileSave(c *slick.Context) error {
 		user.Password = newHash
 	}
 
-	return c.Render(users.ProfilePage())
+	err = data.UserUpdate(user)
+	if err != nil {
+		return err
+	}
+
+	session.AppendAlert(c, &types.AlertType{Type: "success", Message: "Profile updated successfully"})
+
+	return c.Render(users.ProfileForm(users.ProfileProps{User: *user}))
 }

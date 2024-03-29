@@ -14,7 +14,7 @@ import (
 	"todo/view/layout"
 )
 
-func ProfilePage() templ.Component {
+func ProfilePage(props ProfileProps) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -33,7 +33,15 @@ func ProfilePage() templ.Component {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div id=\"todo-container\" class=\"max-w-md mx-auto\"><div class=\"bg-white p-8 rounded-lg shadow-md w-full max-w-md\"><h1 class=\"text-2xl font-semibold text-gray-800 mb-8\">Profile</h1><form action=\"/profile/save\" method=\"POST\" autocomplete=\"off\"><div class=\"mb-4\"><label for=\"username\" class=\"block text-gray-700 text-sm font-bold mb-2\">Username:</label> <input type=\"text\" id=\"username\" name=\"username\" value=\"admin\" class=\"shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline\"></div><div class=\"mb-4\"><label for=\"password\" class=\"block text-gray-700 text-sm font-bold mb-2\">Password:</label> <input type=\"password\" id=\"password\" name=\"password\" class=\"shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline\" placeholder=\"****************\"></div><div class=\"mb-4\"><label for=\"join-date\" class=\"block text-gray-700 text-sm font-bold mb-2\">Join date:</label> <input type=\"text\" id=\"join-date\" name=\"join-date\" value=\"2024-03-27\" class=\"shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline\" disabled></div><div class=\"flex items-center justify-between mb-4\"><a href=\"/logout\" class=\"text-sm text-blue-500 hover:text-blue-800\">Click to logout</a> <button class=\"bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline\">Save</button></div></form></div></div>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div id=\"todo-container\" class=\"max-w-md mx-auto\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = ProfileContainer(props).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
