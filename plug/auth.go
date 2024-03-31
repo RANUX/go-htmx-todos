@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"todo/data"
 	"todo/pkg/session"
+	"todo/types"
 
 	"github.com/anthdm/slick"
 )
@@ -32,6 +33,8 @@ func AuthMiddleware(next slick.Handler) slick.Handler {
 			http.Redirect(w, r, "/login", http.StatusFound)
 			return err
 		}
+
+		c.Set(string(types.ContextEnum.User), user)
 
 		// Run next handler
 		return next(c)

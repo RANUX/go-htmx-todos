@@ -51,6 +51,6 @@ func init() {
 	}
 
 	gob.Register(types.AuthenticatedUser{})
-	gob.Register([]*types.AlertType{})
+	gob.Register(types.AlertType{})
 
 }

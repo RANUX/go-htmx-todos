@@ -61,17 +61,20 @@ func HandleLoginPost(c *slick.Context) error {
 }
 
 func HandleLogoutGet(c *slick.Context) error {
-	session, err := session.Store.Get(c.Request, "user-session")
+	userSession, err := session.Store.Get(c.Request, "user-session")
 	if err != nil {
 		http.Error(c.Response, err.Error(), http.StatusInternalServerError)
 		return err
 	}
 	// remove user from session TODO: refactor to sessison
-	session.Values["user"] = nil
-	err = session.Save(c.Request, c.Response)
+	userSession.Values["user"] = nil
+	err = userSession.Save(c.Request, c.Response)
 	if err != nil {
 		http.Error(c.Response, err.Error(), http.StatusInternalServerError)
 		return err
 	}
+
+	session.AppendAlert(c, &types.AlertType{Type: "success", Message: "Logged out"})
+
 	return c.Redirect("/login", http.StatusFound)
 }

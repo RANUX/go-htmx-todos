@@ -11,9 +11,17 @@ import "io"
 import "bytes"
 
 import (
+	"todo/data"
 	"todo/types"
 	"todo/view/alert"
 )
+
+func GetUser(ctx context.Context) *data.User {
+	if user, ok := ctx.Value(string(types.ContextEnum.User)).(*data.User); ok {
+		return user
+	}
+	return &data.User{Username: "anonymous"}
+}
 
 func Base() templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
@@ -28,7 +36,30 @@ func Base() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Todos Application</title><script src=\"/public/js/htmx.min.js\" defer></script><script src=\"/public/js/tailwind.min.js\" defer></script><link rel=\"stylesheet\" href=\"/public/css/app.css\"><script src=\"/public/js/app.js\"></script></head><body><div id=\"load\" class=\"load\"></div><nav class=\"bg-white border-b border-gray-200 z-30 w-full\"><div class=\"px-6 py-3\"><div class=\"flex items-center justify-between\"><div class=\"flex items-center justify-between w-full\"><div class=\"text-xl font-semibold text-gray-700\">Todos App</div><div class=\"hidden md:flex items-center ml-10\"><a href=\"/todos\" class=\"text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium\">Todos</a> <a href=\"/profile\" class=\"text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium\">Profile</a></div></div></div></div></nav><div id=\"htmx-error-alert\" hidden>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Todos Application</title><script src=\"/public/js/htmx.min.js\" defer></script><script src=\"/public/js/tailwind.min.js\" defer></script><link rel=\"stylesheet\" href=\"/public/css/app.css\"><script src=\"/public/js/app.js\"></script></head><body><div id=\"load\" class=\"load\"></div><nav class=\"bg-white border-b border-gray-200 z-30 w-full\"><div class=\"px-6 py-3\"><div class=\"flex items-center justify-between\"><div class=\"flex items-center justify-between w-full\"><div class=\"text-xl font-semibold text-gray-700\">Todos App ")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var2 string
+		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(GetUser(ctx).Username)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `view/layout/base.templ`, Line: 38, Col: 88}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"hidden md:flex items-center ml-10\"><a href=\"/todos\" class=\"text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium\">Todos</a> ")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if GetUser(ctx).Username != "anonymous" {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a href=\"/profile\" class=\"text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium\">Profile</a>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div></div></div></nav><div id=\"htmx-error-alert\" hidden>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

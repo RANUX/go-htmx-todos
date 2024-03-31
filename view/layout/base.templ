@@ -3,8 +3,17 @@ package layout
 
 import (
 	"todo/types"
+	"todo/data"
 	"todo/view/alert"
 )
+
+
+func GetUser(ctx context.Context) *data.User {
+	if user, ok := ctx.Value(string(types.ContextEnum.User)).(*data.User); ok {
+		return user
+	}
+	return &data.User{Username: "anonymous"}
+}
 
 templ Base() {
 	<!DOCTYPE html>
@@ -26,10 +35,12 @@ templ Base() {
 			<div class="px-6 py-3">
 				<div class="flex items-center justify-between">
 						<div class="flex items-center justify-between w-full">
-							<div class="text-xl font-semibold text-gray-700">Todos App</div>
+							<div class="text-xl font-semibold text-gray-700">Todos App {GetUser(ctx).Username}</div>
 							<div class="hidden md:flex items-center ml-10">
 								<a href="/todos" class="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Todos</a>
-								<a href="/profile" class="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Profile</a>
+								if GetUser(ctx).Username != "anonymous" {
+									<a href="/profile" class="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Profile</a>
+								}
 							</div>
 						</div>
 					</div>

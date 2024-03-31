@@ -28,3 +28,11 @@ type AlertType struct {
 	Type    AlertEnumType
 	Message string
 }
+
+type ContextEnumKey string
+
+var ContextEnum = struct {
+	User ContextEnumKey
+}{
+	User: "user",
+}
