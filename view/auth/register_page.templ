@@ -1,0 +1,18 @@
+package auth
+
+
+import (
+    "todo/view/layout"
+)
+
+
+templ RegisterPage() {
+    @layout.Base() {
+        <div id="todo-container" class="max-w-md mx-auto">
+        <div class="bg-white p-8 rounded-lg shadow-lg max-w-xs w-full">
+            <h2 class="text-2xl font-bold leading-tight text-gray-900 mb-6">Sign up</h2>
+            @RegisterForm()
+        </div>
+        </div>
+    }
+}

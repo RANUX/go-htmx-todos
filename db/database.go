@@ -2,6 +2,7 @@ package db
 
 import (
 	"database/sql"
+	"time"
 
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/dialect/sqlitedialect"
@@ -25,7 +26,10 @@ func CreateDatabase() (*sql.DB, error) {
 	if err != nil {
 		panic(err)
 	}
-	sqlite.SetMaxOpenConns(1)
+	sqlite.SetMaxOpenConns(25)
+	sqlite.SetMaxIdleConns(25)
+	sqlite.SetConnMaxIdleTime(5 * time.Minute)
+	sqlite.SetConnMaxLifetime(2 * time.Hour)
 	return sqlite, nil
 }
 

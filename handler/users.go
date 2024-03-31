@@ -62,7 +62,7 @@ func HandleProfileSave(c *slick.Context) error {
 		return err
 	}
 
-	session.AppendAlert(c, &types.AlertType{Type: "success", Message: "Profile updated successfully"})
+	session.AddAlert(c, &types.AlertType{Type: types.AlertEnum.Success, Message: "Profile updated successfully"})
 
 	return c.Render(users.ProfileForm(users.ProfileProps{User: *user}))
 }

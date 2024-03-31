@@ -21,6 +21,7 @@ func main() {
 	app.Get("/login", handler.HandleLoginPage)
 	app.Post("/login", handler.HandleLoginPost)
 	app.Get("/logout", handler.HandleLogoutGet)
+	app.Get("/signup", handler.HandleRegisterPage)
 	app.Get("/profile", handler.HandleProfilePage, plug.AuthMiddleware)
 	app.Post("/profile/save", handler.HandleProfileSave, plug.AuthMiddleware)
 	app.Get("/todos", handler.HandleTodoPage, plug.AuthMiddleware)

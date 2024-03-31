@@ -18,18 +18,21 @@ func AuthMiddleware(next slick.Handler) slick.Handler {
 		userSession, err := session.Store.Get(r, "user-session")
 
 		if err != nil {
+			session.AddAlert(c, &types.AlertType{Type: types.AlertEnum.Info, Message: "Please login to continue"})
 			http.Redirect(w, r, "/login", http.StatusFound)
 			return err
 		}
 
 		authUser := session.GetAuthenticatedUser(userSession)
 		if !authUser.Authenticated {
+			session.AddAlert(c, &types.AlertType{Type: types.AlertEnum.Info, Message: "Please login to continue"})
 			http.Redirect(w, r, "/login", http.StatusFound)
 			return err
 		}
 
 		user, err := data.UserGetByUUID(authUser.UUID)
 		if err != nil || user == nil {
+			session.AddAlert(c, &types.AlertType{Type: types.AlertEnum.Info, Message: "Please login to continue"})
 			http.Redirect(w, r, "/login", http.StatusFound)
 			return err
 		}

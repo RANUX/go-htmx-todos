@@ -74,7 +74,7 @@ func HandleLogoutGet(c *slick.Context) error {
 		return err
 	}
 
-	session.AppendAlert(c, &types.AlertType{Type: "success", Message: "Logged out"})
+	session.AddAlert(c, &types.AlertType{Type: types.AlertEnum.Success, Message: "Logged out"})
 
 	return c.Redirect("/login", http.StatusFound)
 }

@@ -32,7 +32,7 @@ func PopAlerts(c *slick.Context) []*types.AlertType {
 	return alerts
 }
 
-func AppendAlert(c *slick.Context, alert *types.AlertType) {
+func AddAlert(c *slick.Context, alert *types.AlertType) {
 	s, err := Store.Get(c.Request, "flash-session")
 	if err != nil {
 		http.Error(c.Response, err.Error(), http.StatusInternalServerError)
