@@ -2,7 +2,7 @@ package handler
 
 import (
 	"net/http"
-	"todo/pkg/session"
+	"todo/session"
 	"todo/view/alert"
 
 	"github.com/anthdm/slick"

@@ -2,8 +2,9 @@ package handler
 
 import (
 	"net/http"
+	"todo/configs"
 	"todo/data"
-	"todo/pkg/session"
+	"todo/session"
 	"todo/types"
 	"todo/view/auth"
 
@@ -15,7 +16,7 @@ func HandleLoginPage(c *slick.Context) error {
 }
 
 func HandleLoginPost(c *slick.Context) error {
-	session, err := session.Store.Get(c.Request, "user-session")
+	session, err := configs.Store.Get(c.Request, "user-session")
 	if err != nil {
 		http.Error(c.Response, err.Error(), http.StatusInternalServerError)
 		return err
@@ -61,7 +62,7 @@ func HandleLoginPost(c *slick.Context) error {
 }
 
 func HandleLogoutGet(c *slick.Context) error {
-	userSession, err := session.Store.Get(c.Request, "user-session")
+	userSession, err := configs.Store.Get(c.Request, "user-session")
 	if err != nil {
 		http.Error(c.Response, err.Error(), http.StatusInternalServerError)
 		return err

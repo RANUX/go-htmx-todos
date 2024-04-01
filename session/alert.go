@@ -2,6 +2,7 @@ package session
 
 import (
 	"net/http"
+	"todo/configs"
 	"todo/types"
 
 	"github.com/anthdm/slick"
@@ -9,7 +10,7 @@ import (
 )
 
 func PopAlerts(c *slick.Context) []*types.AlertType {
-	s, err := Store.Get(c.Request, "flash-session")
+	s, err := configs.Store.Get(c.Request, "flash-session")
 	alerts := make([]*types.AlertType, 0)
 
 	if err != nil {
@@ -33,7 +34,7 @@ func PopAlerts(c *slick.Context) []*types.AlertType {
 }
 
 func AddAlert(c *slick.Context, alert *types.AlertType) {
-	s, err := Store.Get(c.Request, "flash-session")
+	s, err := configs.Store.Get(c.Request, "flash-session")
 	if err != nil {
 		http.Error(c.Response, err.Error(), http.StatusInternalServerError)
 		return

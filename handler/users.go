@@ -2,8 +2,9 @@ package handler
 
 import (
 	"net/http"
+	"todo/configs"
 	"todo/data"
-	"todo/pkg/session"
+	"todo/session"
 	"todo/types"
 	"todo/view/users"
 
@@ -11,7 +12,7 @@ import (
 )
 
 func HandleProfilePage(c *slick.Context) error {
-	userSession, err := session.Store.Get(c.Request, "user-session")
+	userSession, err := configs.Store.Get(c.Request, "user-session")
 	if err != nil {
 		http.Error(c.Response, err.Error(), http.StatusInternalServerError)
 		return err
@@ -29,7 +30,7 @@ func HandleProfilePage(c *slick.Context) error {
 }
 
 func HandleProfileSave(c *slick.Context) error {
-	userSession, err := session.Store.Get(c.Request, "user-session")
+	userSession, err := configs.Store.Get(c.Request, "user-session")
 	if err != nil {
 		http.Error(c.Response, err.Error(), http.StatusInternalServerError)
 		return err

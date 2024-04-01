@@ -2,8 +2,9 @@ package plug
 
 import (
 	"net/http"
+	"todo/configs"
 	"todo/data"
-	"todo/pkg/session"
+	"todo/session"
 	"todo/types"
 
 	"github.com/anthdm/slick"
@@ -15,7 +16,7 @@ func AuthMiddleware(next slick.Handler) slick.Handler {
 		// Before handler logic here, e.g., logging, authentication
 		r := c.Request
 		w := c.Response
-		userSession, err := session.Store.Get(r, "user-session")
+		userSession, err := configs.Store.Get(r, "user-session")
 
 		if err != nil {
 			session.AddAlert(c, &types.AlertType{Type: types.AlertEnum.Info, Message: "Please login to continue"})

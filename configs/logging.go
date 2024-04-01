@@ -1,4 +1,4 @@
-package log
+package configs
 
 import (
 	"fmt"

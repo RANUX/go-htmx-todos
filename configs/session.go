@@ -1,4 +1,4 @@
-package session
+package configs
 
 import (
 	"encoding/gob"

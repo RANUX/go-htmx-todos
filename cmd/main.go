@@ -4,13 +4,11 @@ import (
 	"log"
 	"todo/db"
 	"todo/handler"
-	"todo/plug"
+	plug "todo/middleware"
 
 	"github.com/anthdm/slick"
 
-	_ "todo/pkg/env"
-	_ "todo/pkg/log"
-	_ "todo/pkg/session"
+	_ "todo/configs"
 )
 
 func main() {
