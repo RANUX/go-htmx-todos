@@ -1,0 +1,20 @@
+package landing
+
+
+import (
+    "todo/view/layout"
+)
+
+
+templ LandingPage() {
+    @layout.Base() {
+         <div class="max-w-md mx-auto">
+                <h1 class="text-4xl font-bold text-gray-900 mb-4">Todos App</h1>
+                <p class="mb-6">Effortlessly organize your day with our minimalist to-do app. Quickly add tasks, edit on the fly, and check off completed items. Streamline your productivity journey today!</p>
+                <div>
+                    <a href="/signup" class="inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300">Join NOW</a>
+                    <a href="/login" class="inline-block border border-blue-500 text-blue-500 py-2 px-4 rounded hover:bg-blue-500 hover:text-white transition duration-300">Login →</a>
+                </div>
+        </div>
+    }
+}

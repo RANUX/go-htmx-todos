@@ -35,11 +35,11 @@ templ Base() {
 			<div class="px-6 py-3">
 				<div class="flex items-center justify-between">
 						<div class="flex items-center justify-between w-full">
-							<div class="text-xl font-semibold text-gray-700">Todos App {GetUser(ctx).Username}</div>
+							<div class="text-xl font-semibold text-gray-700"><a href="/" class="hover:text-gray-900">Todos App</a></div>
 							<div class="hidden md:flex items-center ml-10">
 								<a href="/todos" class="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Todos</a>
 								if GetUser(ctx).Username != "anonymous" {
-									<a href="/profile" class="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Profile</a>
+									<a href="/profile" class="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">{GetUser(ctx).Username}</a>
 								}
 							</div>
 						</div>
@@ -61,7 +61,6 @@ templ Base() {
 		</body>
 		<script>
 			document.body.addEventListener('htmx:afterRequest', function(event) {
-				console.log('htmx:afterRequest');
 
 				var htmxAlert = document.querySelector('#htmx-error-alert');
 				var htmxAlertUnknown = document.querySelector('#htmx-error-alert-unknown');

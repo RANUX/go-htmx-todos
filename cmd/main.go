@@ -15,7 +15,7 @@ func main() {
 	db.Init()
 
 	app := slick.New()
-	app.Get("/", handler.HandleLoginPage)
+	app.Get("/", handler.HandleLandingPage)
 	app.Get("/login", handler.HandleLoginPage)
 	app.Post("/login", handler.HandleLoginPost)
 	app.Get("/logout", handler.HandleLogoutGet)
