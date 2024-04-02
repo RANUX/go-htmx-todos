@@ -1,8 +1,6 @@
 package handler
 
 import (
-	"net/http"
-	"todo/configs"
 	"todo/data"
 	"todo/session"
 	"todo/types"
@@ -12,16 +10,8 @@ import (
 )
 
 func HandleProfilePage(c *slick.Context) error {
-	userSession, err := configs.Store.Get(c.Request, "user-session")
-	if err != nil {
-		http.Error(c.Response, err.Error(), http.StatusInternalServerError)
-		return err
-	}
-
-	authUser := session.GetAuthenticatedUser(userSession)
-
 	// get user from db by username
-	user, err := data.UserGetByUUID(authUser.UUID)
+	user, err := data.UserGetUser(c)
 	if err != nil {
 		return err
 	}
@@ -30,19 +20,11 @@ func HandleProfilePage(c *slick.Context) error {
 }
 
 func HandleProfileSave(c *slick.Context) error {
-	userSession, err := configs.Store.Get(c.Request, "user-session")
-	if err != nil {
-		http.Error(c.Response, err.Error(), http.StatusInternalServerError)
-		return err
-	}
-
 	username := c.FormValue("username")
 	password := c.FormValue("password")
 
-	authUser := session.GetAuthenticatedUser(userSession)
-
 	// get user from db by username
-	user, err := data.UserGetByUUID(authUser.UUID)
+	user, err := data.UserGetUser(c)
 	if err != nil {
 		return err
 	}

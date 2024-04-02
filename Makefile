@@ -29,3 +29,10 @@ templ:
 .PHONY: watch
 watch:
 	air
+
+# recreate database
+.PHONY: recreate
+recreate:
+	@go run ./cmd/drop
+	@go run ./cmd/create
+	@go run ./cmd/seed

@@ -7,10 +7,16 @@ import (
 	"todo/view/todos"
 
 	"github.com/anthdm/slick"
+	"github.com/sirupsen/logrus"
 )
 
 func HandleTodoPage(c *slick.Context) error {
-	todoList, err := data.TodosAll()
+	user, err := data.UserGetUser(c)
+	if err != nil {
+		logrus.Error(err)
+		return err
+	}
+	todoList, err := data.TodoAllByUser(user)
 	if err != nil {
 		fmt.Printf("Error fetching todos: %v\n", err)
 		return err
@@ -34,9 +40,20 @@ func HandleTodoRemove(c *slick.Context) error {
 // hande add new todo
 func HandleTodoAdd(c *slick.Context) error {
 	text := c.FormValue("text")
-	data.TodoAdd(text)
 
-	todoList, err := data.TodosAll()
+	user, err := data.UserGetUser(c)
+	if err != nil {
+		logrus.Error(err)
+		return err
+	}
+
+	_, err = data.TodoCreate(text, user)
+	if err != nil {
+		logrus.Error(err)
+		return err
+	}
+
+	todoList, err := data.TodoAllByUser(user)
 	if err != nil {
 		fmt.Printf("Error fetching todos: %v\n", err)
 		return err
@@ -50,7 +67,7 @@ func HandleTodoAdd(c *slick.Context) error {
 
 func HandleTodoEditGet(c *slick.Context) error {
 	id := c.Param("id")
-	todo, err := data.TodoGet(id)
+	todo, err := data.TodoGetById(id)
 	if err != nil {
 		fmt.Printf("Error fetching todo: %v\n", err)
 		return err
@@ -63,11 +80,17 @@ func HandleTodoEditGet(c *slick.Context) error {
 }
 
 func HandleTodoEditPost(c *slick.Context) error {
+	user, err := data.UserGetUser(c)
+	if err != nil {
+		logrus.Error(err)
+		return err
+	}
 	id := c.FormValue("id")
 	text := c.FormValue("text")
+
 	data.TodoUpdate(id, text)
 
-	todoList, err := data.TodosAll()
+	todoList, err := data.TodoAllByUser(user)
 	if err != nil {
 		fmt.Printf("Error fetching todos: %v\n", err)
 		return err

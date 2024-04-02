@@ -3,13 +3,28 @@ package main
 import (
 	"todo/data"
 	"todo/db"
+
+	"github.com/sirupsen/logrus"
 )
 
-func AddTodos() error {
-	data.TodoAdd("Buy milk")
-	data.TodoAdd("Buy eggs")
-	data.TodoAdd("Buy bread")
-	return nil
+func AddTodos() {
+	// get user from db by username
+	user, err := data.UserGet("admin")
+	if err != nil {
+		logrus.Error(err)
+		return
+	}
+	// create new todo
+	_, err = data.TodoCreate("Buy milk", user)
+	if err != nil {
+		logrus.Error(err)
+		return
+	}
+	_, err = data.TodoCreate("Buy bread", user)
+	if err != nil {
+		logrus.Error(err)
+		return
+	}
 }
 
 func AddUsers() error {
@@ -20,6 +35,6 @@ func AddUsers() error {
 
 func main() {
 	db.Init()
-	AddTodos()
 	AddUsers()
+	AddTodos()
 }

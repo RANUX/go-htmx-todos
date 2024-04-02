@@ -2,7 +2,6 @@ package plug
 
 import (
 	"net/http"
-	"todo/configs"
 	"todo/data"
 	"todo/session"
 	"todo/types"
@@ -16,15 +15,13 @@ func AuthMiddleware(next slick.Handler) slick.Handler {
 		// Before handler logic here, e.g., logging, authentication
 		r := c.Request
 		w := c.Response
-		userSession, err := configs.Store.Get(r, "user-session")
 
+		authUser, err := session.GetAuthenticatedUser(c)
 		if err != nil {
 			session.AddAlert(c, &types.AlertType{Type: types.AlertEnum.Info, Message: "Please login to continue"})
 			http.Redirect(w, r, "/login", http.StatusFound)
 			return err
 		}
-
-		authUser := session.GetAuthenticatedUser(userSession)
 		if !authUser.Authenticated {
 			session.AddAlert(c, &types.AlertType{Type: types.AlertEnum.Info, Message: "Please login to continue"})
 			http.Redirect(w, r, "/login", http.StatusFound)

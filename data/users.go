@@ -5,7 +5,9 @@ import (
 	"errors"
 	"time"
 	"todo/db"
+	"todo/session"
 
+	"github.com/anthdm/slick"
 	"github.com/google/uuid"
 	"github.com/uptrace/bun"
 	"golang.org/x/crypto/bcrypt"
@@ -17,6 +19,7 @@ type User struct {
 	Username  string    `bun:"username,notnull"`      // Not null constraint
 	Email     string    `bun:"email,unique,notnull"`  // Unique and not null constraint
 	Password  string    `bun:"password,notnull"`
+	Todos     []*Todo   `bun:"todos,rel:has-many,join:id=user_id"`
 	CreatedAt time.Time `bun:"created_at,nullzero,notnull,default:current_timestamp"` // Use current timestamp as default
 }
 
@@ -117,4 +120,22 @@ func UserUpdate(user *User) error {
 		return err
 	}
 	return nil
+}
+
+// Get user
+func UserGetUser(c *slick.Context) (*User, error) {
+	user, err := session.GetAuthenticatedUser(c)
+	if err != nil {
+		return nil, err
+	}
+	if !user.Authenticated {
+		return nil, errors.New("user not found")
+	}
+	// get user from database
+	dbUser, err := UserGetByUUID(user.UUID)
+	if err != nil {
+		return nil, err
+	}
+
+	return dbUser, nil
 }
