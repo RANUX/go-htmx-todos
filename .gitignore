@@ -2,6 +2,7 @@
 bin
 .build
 .env
+.env.prod
 
 
 # Test binary, built with `go test -c`

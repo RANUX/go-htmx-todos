@@ -1,8 +1,10 @@
-services:
+version: '3.8'
 
+services:
   todos:
     build:
-      context: ./
+      context: .
       dockerfile: Dockerfile
     ports:
       - '3000:3000'
+    image: todos:latest
